@@ -8,7 +8,7 @@ store_lock = threading.Lock()
 
 def process_line(line):
     # Rimuove eventuali spazi o caratteri di newline finali (\r o \n)
-    line = line.rstrip("\n")
+    line = line.rstrip("\r\n")
     if not line:
         return None
 
@@ -17,16 +17,20 @@ def process_line(line):
     cmd = parts[0]
     args = parts[1] if len(parts) > 1 else ""
 
-    #Comando PING
+    # 1. Comando PING
     if cmd == "PING":
+        if args:  # PING non prevede argomenti
+            return "ERR"
         return "PONG"
 
-    #Comando ECHO
+    # 2. Comando ECHO
     elif cmd == "ECHO":
         return args  # Restituisce tutto quello che segue il primo spazio
 
-    #Comando SET
+    # 3. Comando SET
     elif cmd == "SET":
+        if not args:
+            return "ERR"
         # Separa la chiave dal valore (la chiave non contiene spazi)
         kv_parts = args.split(" ", 1)
         if len(kv_parts) < 2:  # SET senza un valore -> ERR
