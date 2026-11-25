@@ -15,15 +15,15 @@ This filter was chosen because threat intelligence reports identified *syncbridg
 ### Extracting the JA4 Fingerprint
 By inspecting the TLS details of this packet, I extracted the **JA4** fingerprint field and applied it as a global display filter.
 
-![alt text](Screenshot_2026-11-08_121449.png)
+![alt text](Screenshot 2026-11-08 121449.png)
 
 ### Isolating Malware Connections & Flag Reconstruction
 Applying the JA4 filter successfully matched all 8 connections originated by the malware across the capture.
 
-![alt text](Screenshot_2026-11-08_122116.png)
+![alt text](Screenshot 2026-11-08 122116.png)
 
 By extracting the first label of the SNI (6 hex digits) from each of the 8 packets in capture order and concatenating them, I obtained the final flag:
 
 **netsec{680f645c7411bde580fb4331d0366677c3985cbac6eb91d2}**
 
-![alt text](Screenshot_2026-11-08_122335.png)
+![alt text](Screenshot 2026-11-08 122335.png)
